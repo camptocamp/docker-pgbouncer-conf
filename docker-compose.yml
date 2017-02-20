@@ -1,0 +1,23 @@
+version: '2'
+services:
+  postgresql:
+    image: postgres
+
+  pgbouncer:
+    image: kotaimen/pgbouncer
+    ports:
+      - 6432:6432
+    links:
+      - postgresql:db
+    volumes:
+      #      - pgbouncerconf:/etc/pgbouncer:ro
+      - ./pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./userlist.txt:/etc/pgbouncer/userlist.txt
+
+#  pgbouncer-conf:
+#    build: .
+#    volumes_from:
+#      - pgbouncer
+
+volumes:
+  pgbouncerconf: {}
